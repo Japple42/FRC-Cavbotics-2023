@@ -41,10 +41,10 @@ public class SwerveDrive extends SubsystemBase{
 
 
     // (Y,X) format
-    Translation2d frontRightLocation = new Translation2d(distanceFromOrigin, distanceFromOrigin);
-    Translation2d frontLeftLocation = new Translation2d(-distanceFromOrigin, distanceFromOrigin);
-    Translation2d backLeftLocation = new Translation2d(-distanceFromOrigin, -distanceFromOrigin);
-    Translation2d backRightLocation = new Translation2d(distanceFromOrigin, -distanceFromOrigin);
+    Translation2d frontRightLocation = new Translation2d(distanceFromOrigin, -distanceFromOrigin);
+    Translation2d frontLeftLocation = new Translation2d(distanceFromOrigin, distanceFromOrigin);
+    Translation2d backLeftLocation = new Translation2d(-distanceFromOrigin, distanceFromOrigin);
+    Translation2d backRightLocation = new Translation2d(-distanceFromOrigin, -distanceFromOrigin);
 
 
     kinematics = new SwerveDriveKinematics(frontRightLocation, frontLeftLocation, backLeftLocation, backRightLocation);
@@ -55,10 +55,10 @@ public class SwerveDrive extends SubsystemBase{
     moduleState = new SwerveModuleState[4];
     startingPos = starting;
 
-    m_frontRightLocation = new SwerveModule(2, 1, 0);
-    m_frontLeftLocation = new SwerveModule(3, 4, 1);
-    m_backLeftLocation = new SwerveModule(5, 6, 2);
-    m_backRightLocation = new SwerveModule(7, 8, 3);
+    m_frontRightLocation = new SwerveModule(5, 6);
+    m_frontLeftLocation = new SwerveModule(3, 4);
+    m_backLeftLocation = new SwerveModule(2, 1);
+    m_backRightLocation = new SwerveModule(8, 7);
 
     
     m_frontRightLocation.reset();
@@ -87,9 +87,9 @@ public class SwerveDrive extends SubsystemBase{
 
   public void updatePeriodic(double translateY, double translateX, double yaw) {
 
-    speeds = ChassisSpeeds.fromFieldRelativeSpeeds(translateY * MAX_SPEED, translateX * MAX_SPEED * -1,
+    speeds = ChassisSpeeds.fromFieldRelativeSpeeds(translateY * MAX_SPEED, translateX * MAX_SPEED,
         yaw * MAX_RADIANS, new Rotation2d(Math.toRadians(getGyroAngle())));
-    speeds = new ChassisSpeeds(translateY * MAX_SPEED, translateX *
+    speeds = new ChassisSpeeds(translateY * MAX_SPEED, translateX * -1 *
     MAX_SPEED * -1, yaw * MAX_RADIANS);
 
     moduleState = kinematics.toSwerveModuleStates(speeds);
