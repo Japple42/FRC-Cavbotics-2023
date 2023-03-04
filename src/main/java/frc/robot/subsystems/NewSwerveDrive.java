@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
 
-public class SwerveDrive extends SubsystemBase{
+public class NewSwerveDrive extends SubsystemBase{
 
   private SwerveModuleState[] moduleState;
   private ChassisSpeeds speeds;
@@ -31,13 +31,13 @@ public class SwerveDrive extends SubsystemBase{
   public double MAX_RADIANS;
   public AHRS gyro;
   public CommandXboxController remote;
-  //public int startingPos;
+  public int startingPos;
   // public SwerveDriveOdometry m_Odometry;
 
   
 
 
-  public SwerveDrive(double distanceFromOrigin) {
+  public NewSwerveDrive(double distanceFromOrigin, int starting) {
 
 
     // (Y,X) format
@@ -53,7 +53,7 @@ public class SwerveDrive extends SubsystemBase{
     MAX_RADIANS = 4;//5
 
     moduleState = new SwerveModuleState[4];
-    //startingPos = starting;
+    startingPos = starting;
 
     m_frontRightLocation = new SwerveModule(5, 6);
     m_frontLeftLocation = new SwerveModule(3, 4);
@@ -200,17 +200,17 @@ public class SwerveDrive extends SubsystemBase{
     return m_frontLeftLocation.getDrive();
   }
 
-  // public Pose2d getStarting(){
-  //  switch(startingPos){
-  //    case 1: return new Pose2d(0,0, null);
-  //    case 2: return new Pose2d(0,0, null);
-  //    case 3: return new Pose2d(0,0, null);
+  public Pose2d getStarting(){
+    switch(startingPos){
+      case 1: return new Pose2d(0,0, null);
+      case 2: return new Pose2d(0,0, null);
+      case 3: return new Pose2d(0,0, null);
 
-  //  }
-  //  return null;
-  //   return new Pose2d(0, 0, null);
+    }
+    return null;
+    // return new Pose2d(0, 0, null);
     
-  // }
+  }
 
   public void resetDrive(){
     m_frontRightLocation.driveRest();
